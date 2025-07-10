@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML 표 셀 병합</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        /* 이중 선 하나로 합치기 */
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: antiquewhite;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML 표 셀 병합: colspan과 rowspan</h1>
+    <h2>colspan 속성(열 병합)</h2>
+    <table>
+      <caption>
+        2025 상반기 판매 요약
+      </caption>
+      <thead>
+        <tr>
+          <th>카테고리</th>
+          <th colspan="2">상반기</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>1분기</th>
+          <th>2분기</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>의류</td>
+          <td>100</td>
+          <td>150</td>
+        </tr>
+        <tr>
+          <td>식품</td>
+          <td>200</td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td>가전</td>
+          <td>75</td>
+          <td>90</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>총계</td>
+          <td colspan="2">1,015</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <hr />
+
+    <h2>rowspan 속성(행 병합)</h2>
+    <table>
+      <caption>
+        학생 별 과목 점수
+      </caption>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th colspan="2">과목</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="3">김철수</td>
+          <td>국어</td>
+          <td>90</td>
+        </tr>
+        <tr>
+          <td>영어</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td>수학</td>
+          <td>70</td>
+        </tr>
+        <tr>
+          <td rowspan="3">김영희</td>
+          <td>국어</td>
+          <td>80</td>
+        </tr>
+        <tr>
+          <td>영어</td>
+          <td>70</td>
+        </tr>
+        <tr>
+          <td>수학</td>
+          <td>100</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+
+    <h2>colspan과 rowspan 같이 사용하기</h2>
+
+    <table>
+      <caption>
+        복잡적인 표 구조 예시
+      </caption>
+      <thead>
+        <tr>
+          <th rowspan="2">구분</th>
+          <th colspan="2">성적</th>
+        </tr>
+        <tr>
+          <th>중간고사</th>
+          <th>기말고사</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>국어</td>
+          <td>80</td>
+          <td>90</td>
+        </tr>
+        <tr>
+          <td>수학</td>
+          <td>100</td>
+          <td>90</td>
+        </tr>
+        <tr>
+          <td>영어</td>
+          <td>100</td>
+          <td>70</td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+  </body>
+</html>

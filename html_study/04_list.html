@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>목록 관련 HTML 태그</title>
+  </head>
+  <body>
+    <h1>순서 없는 목록: ul(unordered list)</h1>
+    <h3>오늘 구매할 식료품</h3>
+    <ul>
+      <!-- li(list item) : 단독 사용 불가능 -->
+      <li>사과</li>
+      <li>우유</li>
+      <li>닭가슴살</li>
+      <li>그릭요거트</li>
+      <li>그래놀라</li>
+      <li>
+        채소
+        <ul>
+          <li>양파</li>
+          <li>토마토</li>
+          <li>양배추</li>
+        </ul>
+      </li>
+    </ul>
+    <hr />
+    <h1>순서 있는 목록: ol(ordered list)</h1>
+    <h3>라면 맛있게 끓이기</h3>
+    <ol>
+      <li>냄비에 물과 스프를 넣고 끓인다.</li>
+      <li>물이 끓으면 면을 넣는다.</li>
+      <li>3분 간 더 끓인다.</li>
+      <li>계란을 넣어서 푼다.</li>
+      <li>맛있게 먹는다.</li>
+    </ol>
+    <h3>로마 숫자로 된 할 일 목록</h3>
+    <ol type="I">
+      <li>HTML 공부하기</li>
+      <li>Spring Boot 공부하기</li>
+      <li>CSS 공부하기</li>
+      <li>프로젝트 아이디어 구상하기</li>
+    </ol>
+    <hr />
+    <h3>정의 목록: dl, dt, dd</h3>
+    <dl>
+      <dt>HTML</dt>
+      <dd>웹 페이지의 구조와 내용을 정의하는 마크업 언어입니다.</dd>
+
+      <dt>CSS</dt>
+      <dd>
+        HTML 문서의 스타일(색상, 레이아웃, 폰트 등)을 정의하는 스타일 시트
+        언어입니다.
+      </dd>
+    </dl>
+  </body>
+</html>

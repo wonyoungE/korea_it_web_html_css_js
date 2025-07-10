@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML input 태그 기본 타입</title>
+  </head>
+  <body>
+    <h1>HTML input 태그 기본 타입 배우기</h1>
+    <!--  -->
+    <!-- name: form 제출 시 넘어갈 파라미터 명 -->
+    <form action="#" method="post">
+      <div>
+        <!-- for -> input의 id랑 연결됨 -->
+        <label for="username">이름 : </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="이름을 입력해주세요."
+        />
+      </div>
+      <div>
+        <label for="password">비밀번호 : </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="비밀번호를 입력해주세요."
+        />
+      </div>
+      <div>
+        <label for="email">이메일 : </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="이메일을 입력해주세요."
+        />
+      </div>
+      <div>
+        <label for="tel">전화번호 : </label>
+        <input
+          type="tel"
+          id="tel"
+          name="tel"
+          placeholder="전화번호를 입력해주세요."
+        />
+      </div>
+      <div>
+        <label for="number">수량 : </label>
+        <input
+          type="number"
+          id="number"
+          name="quantity"
+          min="1"
+          max="10"
+          value="1"
+        />
+      </div>
+      <div>
+        <label for="date">날짜 선택 : </label>
+        <input type="date" id="date" name="date" />
+      </div>
+      <div>
+        <label for="color">색상 선택 : </label>
+        <input type="color" id="color" name="color" value="#ff0000" />
+      </div>
+      <div>
+        <label for="range">볼륨 : </label>
+        <input
+          type="range"
+          id="range"
+          name="range"
+          min="0"
+          max="100"
+          value="30"
+        />
+      </div>
+      <div>
+        <label for="file">파일 선택 : </label>
+        <input type="file" id="file" name="upload_file" />
+      </div>
+      <div>
+        <!-- 사용자에게는 안보이지만 폼 제출 시 같이 제출되는 데이터 -->
+        <label for="hidden_data">숨겨진 데이터 : </label>
+        <input type="hidden" id="hidden_data" name="data_id" value="12345" />
+      </div>
+      <!-- 버튼 태그 -->
+      <!-- form 태그 내부 -->
+      <button type="submit">정보 제출</button>
+      <button type="reset">초기화</button>
+      <!-- form 내, 외부의 button -> 그냥 동작 없는 버튼 -->
+      <!-- js로 버튼을 눌렀을 때 동작을 추가 -->
+      <button type="button">일반 버튼</button>
+      <div>
+        <input type="radio" name="radio" />사과
+        <input type="radio" name="radio" />망고
+        <input type="radio" name="radio" />딸기
+      </div>
+      <input type="checkbox">동의 하시겠습니까?
+      <input type="checkbox">
+      <input type="checkbox">
+    </form>
+  </body>
+</html>
