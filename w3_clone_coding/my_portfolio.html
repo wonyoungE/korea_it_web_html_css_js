@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <title>My Portfolio</title>
+    <style>
+      * {
+          box-sizing: border-box;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Railway', sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+      body {
+        max-width: 1600px;
+      }
+      #whole-container {
+        width: 100vw;
+        display: flex;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+        font-weight: 300;
+      }
+      /* 사이드 바 */
+      #sidebar-wrapper {
+        width: 300px;
+        height: 100vh;
+        padding-left: 16px;
+        font-size: 16px;
+      }
+      #profile-wrapper {
+        font-size: 16px;
+        padding: 0px 16px;
+        padding-top: 36px;
+        margin-top: 0px;
+      }
+      #profile-img {
+        border-radius: 5px;
+      }
+      #name {
+        font-size: 20px;
+      }
+      #introduce {
+        color: #757575;
+        margin: 15px 0;
+      }
+      #sidebar-items {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 16px;
+      }
+      #sidebar-items > a {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+      }
+      #sidebar-items > a:hover {
+        background-color: #757575;
+        font-weight: 600;
+      }
+      #sidebar-items i {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+      }
+      .icon-margin {
+        margin-right: 16px;
+      }
+      #contact-icons {
+        padding: 0px 16px;
+        margin: 10px 0px;
+      }
+      #contact-icons > i {
+        width: 16px;
+        height: 16px;
+      }
+      /* 메인 */
+      #main-wrapper {
+        flex: 1;
+        background-color: #f1f0f0;
+      }
+      #header-container {
+        border-bottom: 6px solid rgb(190, 189, 189);
+        margin: 0px 16px;
+      }
+      #header-container > h1 {
+        margin-top: 20px;
+        font-size: 36px;
+        font-weight: 500;
+      }
+      #filter-container {
+        padding: 16px 0px;
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+      }
+      #filter-container > div {
+        margin-right: 16px;
+      }
+      .filter-button {
+        padding: 8px 16px;
+        border-style: none;
+        margin: 0px 2px;
+        background-color: white;
+        font-size: 16px;
+        font-family: inherit;
+        font-weight: 300;
+      }
+      #portfolio-container {
+        width: 100%;
+        margin: 16px 0px;
+        padding: 0px 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .portfolio-card {
+        flex: 1 1 calc(33.333% - 16px); /* 3등분 - gap 고려 */
+        background-color: white;
+      }
+      .card-img {
+        width: 100%;
+      }
+      .card-text-container {
+        padding: 0px 16px;
+      }
+      .card-title {
+        font-size: 15px;
+        font-weight: 400;
+        margin: 10px 0;
+      }
+      .card-explain {
+        font-size: 14px;
+        font-weight: 300;
+        margin-top: 15px 0px;
+      }
+      #pagination-container {
+        margin: 32px 0px;
+        display: flex;
+        justify-content: center;
+      }
+      #pagination-container > a {
+        font-size: 16px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+      }
+      #pagination-container > a:hover {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="whole-container">
+      <!-- 사이드바 -->
+      <nav id="sidebar-wrapper">
+        <!-- 프로필 -->
+        <div id="profile-wrapper">
+          <img
+            src="https://www.w3schools.com/w3images/avatar_g2.jpg"
+            alt="프로필 이미지"
+            id="profile-img"
+            width="121"
+          />
+          <p id="name"><b>PORTFOLIO</b></p>
+          <p id="introduce">Template by W3.CSS</p>
+        </div>
+        <!-- 사이드바 -->
+        <div id="sidebar-items">
+          <a href="#portfolio"
+            ><i class="fa fa-th-large fa-fw icon-margin"></i>PORTFOLIO</a
+          >
+          <a href="about"><i class="fa fa-user icon-margin"></i>ABOUT</a>
+          <a href="contact"
+            ><i class="fa fa-envelope icon-margin"></i>CONTACT</a
+          >
+        </div>
+        <div id="contact-icons">
+          <i class="fa fa-facebook-official"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-snapchat"></i>
+          <i class="fa fa-pinterest-p"></i>
+          <i class="fa fa-twitter"></i>
+          <i class="fa fa-linkedin"></i>
+        </div>
+      </nav>
+      <!-- 메인 -->
+      <div id="main-wrapper">
+        <!-- 포트폴리오 섹션 -->
+        <div id="portfolio">
+          <!-- 헤더 -->
+          <header id="header-container">
+            <h1>My Portfolio</h1>
+            <div id="filter-container">
+              <div>Filter:</div>
+              <button id="all" class="filter-button">ALL</button>
+              <button class="filter-button">
+                <i class="fa fa-diamond icon-margin"></i>Design
+              </button>
+              <button class="filter-button">
+                <i class="fa fa-photo icon-margin"></i>Photos
+              </button>
+              <button class="filter-button">
+                <i class="fa fa-map-pin icon-margin"></i>Art
+              </button>
+            </div>
+          </header>
+          <!-- 포트폴리오 카드 -->
+          <div id="portfolio-container">
+            <div class="portfolio-card">
+              <img src="https://www.w3schools.com/w3images/mountains.jpg" alt="포트폴리오 이미지" class="card-img">
+              <div class="card-text-container">
+                <h3 class="card-title"><b>Lorem Ipsum</b></h6>
+                <p class="card-explain">Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <img src="https://www.w3schools.com/w3images/lights.jpg" alt="포트폴리오 이미지" class="card-img">
+              <div class="card-text-container">
+                <h3 class="card-title"><b>Lorem Ipsum</b></h6>
+                <p class="card-explain">Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <img src="https://www.w3schools.com/w3images/nature.jpg" alt="포트폴리오 이미지" class="card-img">
+              <div class="card-text-container">
+                <h3 class="card-title"><b>Lorem Ipsum</b></h6>
+                <p class="card-explain">Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <img src="https://www.w3schools.com/w3images/p1.jpg" alt="포트폴리오 이미지" class="card-img">
+              <div class="card-text-container">
+                <h3 class="card-title"><b>Lorem Ipsum</b></h6>
+                <p class="card-explain">Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <img src="https://www.w3schools.com/w3images/p2.jpg" alt="포트폴리오 이미지" class="card-img">
+              <div class="card-text-container">
+                <h3 class="card-title"><b>Lorem Ipsum</b></h6>
+                <p class="card-explain">Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+              </div>
+            </div><div class="portfolio-card">
+              <img src="https://www.w3schools.com/w3images/p3.jpg" alt="포트폴리오 이미지" class="card-img">
+              <div class="card-text-container">
+                <h3 class="card-title"><b>Lorem Ipsum</b></h6>
+                <p class="card-explain">Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+              </div>
+            </div>
+          </div>
+          <div id="pagination-container">
+            <a href="#">«</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">»</a>
+          </div>
+        </div>
+        <!-- 어바웃 미 섹션 -->
+        <div id="about"></div>
+        <!-- 컨택트 섹션 -->
+        <div id="contact"></div>
+      </div>
+    </div>
+  </body>
+</html>

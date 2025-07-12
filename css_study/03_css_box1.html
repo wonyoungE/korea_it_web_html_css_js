@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        width: 1000px;
+        height: 300px;
+        /* border를 주면 width, height에 border의 px이 더해짐
+        여기서는 width: 1002, 302가 됨 -> 이거 해결: box-sizing: border-box */
+        /* 그냥 border쓰면 box-sizing 같이 쓴다고 생각해라
+        border-box 해두면 border 포함한 박스 크기가 됨 */
+        border: 1px solid black;
+        box-sizing: border-box;
+        background-color: darkseagreen;
+        /* 자식 요소들을 가로로 정렬 */
+        display: flex;
+        /* 자식 요소 중앙 정렬 */
+        /* justify-content: center; */
+        /* justify-content: space-around; */
+        /* justify-content: space-between; */
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .box {
+        width: 150px;
+        height: 150px;
+        background-color: lightsalmon;
+        border: 1px solid black;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- 부모 태그 -->
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+  </body>
+</html>
