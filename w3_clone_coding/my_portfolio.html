@@ -25,7 +25,7 @@
         max-width: 1600px;
       }
       #whole-container {
-        width: 100vw;
+        width: 100%;
         display: flex;
       }
       a {
@@ -35,9 +35,12 @@
       }
       /* 사이드 바 */
       #sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
         width: 300px;
         height: 100vh;
-        padding-left: 16px;
         font-size: 16px;
       }
       #profile-wrapper {
@@ -90,6 +93,7 @@
       /* 메인 */
       #main-wrapper {
         flex: 1;
+        margin-left: 300px;
         background-color: #f1f0f0;
       }
       #header-container {
@@ -164,6 +168,284 @@
         background-color: black;
         color: white;
       }
+      #about-img-container {
+        padding: 0 16px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      #about-img-container > img {
+        width: 50%;
+        max-width: calc(50% - 8px);
+      }
+      #about-text-container {
+        padding: 24px 24px;
+      }
+      #about-text-container > h3 {
+        margin: 10px 0;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      #about-text-container > p {
+        margin: 15px 0;
+        font-size: 15px;
+        font-weight: 300;
+      }
+      #technical-skill-container {
+        padding: 0 24px;
+      }
+      #technical-skill-container > h3 {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 24px;
+      }
+      #skill-list-container {
+        font-size: 16px;
+        font-weight: 300;
+      }
+      .bar-container {
+        background-color: rgb(132, 133, 133);
+        text-align: center;
+      }
+      .progress-bar {
+        color: white;
+        background-color: #616161;
+        padding: 10px 0px;
+      }
+      #download-button {
+        padding: 12px 24px;
+        margin: 30px 0px;
+        border: none;
+        background-color: #616161;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 300;
+        color: white;
+      }
+      #download-button:hover {
+        color: white;
+        background-color: #9e9c9c;
+        cursor: pointer;
+      }
+      #how-much {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 20px;
+      }
+      #charge-container {
+        margin-bottom: 50px;
+      }
+      .price-table-container {
+        font-size: 15px;
+        font-weight: 300;
+        color: #929090;
+        gap: 16px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        opacity: 1.0;
+      }
+      .price-table-container ul {
+        width: calc(33% - 8px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        border: 1px solid rgb(211, 209, 209);
+        border-bottom: none;
+      }
+      .price-table-container li {
+        list-style-type: none;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgb(211, 209, 209);
+      }
+      .table-title {
+        padding: 40px 0px;
+        font-size: 24px;
+        color: white;
+        background-color: #797979;
+      }
+      #pro {
+        background-color: #51c4b8;
+      }
+      .table-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        padding: 10px 24px;
+      }
+      .price-container > span {
+        font-size: 14px;
+      }
+      .price {
+        font-size: 30px;
+        color:#797979;
+        margin: 10px 0px;
+      }
+      .sign-up-button-container {
+        background-color: #f1f0f0;
+        border-bottom: none;
+      }
+      .sign-up-button {
+        background-color: #51c4b8;
+        border: none;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 300;
+        color: white;
+        text-align: center;
+        padding: 12px 24px;
+      }
+      .sign-up-button:hover{
+        background-color: black;
+        cursor: pointer;
+      }
+      #contact {
+        padding: 12px 24px;
+        background-color: #a3a0a0;
+
+      }
+      #contact > h3 {
+        margin: 10px 0;
+        font-size: 20px;
+        font-weight: 500;
+        
+      }
+      #contact-method-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .contact-method {
+        padding: 0px 8px;
+        width: calc(100%);
+        color: white;
+      }
+      .contact-method i {
+        font-size: 35px;
+      }
+      #contact-email, #contact-tel {
+        background-color: #686767;
+      }
+      #contact-loc {
+        background-color: #3a9e94;
+      }
+      #contact > hr {
+        margin-top: 40px;
+      }
+      #contact-form {
+        margin-top: 24px;
+        margin-bottom: 12px;
+        font-size: 16px;
+        font-weight: 300;
+      }
+      .form-input {
+        display: flex;
+        flex-direction: column;
+      }
+      .form-input > input {
+        padding: 10px 0;
+        margin-bottom: 16px;
+        border: none;
+      }
+      #contact-form > button {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 300;
+        color: white;
+        background-color: black;
+        border: none;
+        padding: 10px 16px;
+      }
+      #contact-form > button:hover {
+        cursor: pointer;
+        background-color: #cccbcb;
+        color: black;
+      }
+      footer {
+        padding: 32px 24px;
+        background-color: #555454;
+        color: white;
+        font-weight: 300;
+        font-size: 16px;
+        display: flex;
+        gap: 16px;
+      }
+      .footer {
+        width: calc(100% - 8px);
+      }
+      .footer > h4 {
+        font-size: 26px;
+        font-weight: 300;
+        margin: 10px 0;
+      }
+      #blog-post-container hr {
+        margin: 0;
+      }
+      .post {
+        height: 82px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding: 16px;
+      }
+      .post:hover {
+        background-color: #cccbcb;
+      }
+      .post > img {
+        width: 50px;
+        height: 50px;
+        margin-right: 16px;
+      }
+      .post > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+      }
+      .post h6 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 300;
+      }
+      .post p {
+        margin: 0;
+        font-size: 16px;
+      }
+      #popular-tags-container span {
+        background-color: #b4b4b4;
+        color: black;
+        font-size: 12px;
+        display: inline-block;
+        padding: 1px 7px;
+        margin: 6px 1px;
+      }
+      #popular-tags-container #travel {
+        background-color: black;
+        font-size: 16px;
+        color: white;
+
+      }
+      .home {
+        color: white;
+        text-decoration: underline 0.5px white;
+      }
+      #w3 {
+        height: 80px;
+        color: white;
+        font-size: 16px;
+        font-weight: 300;
+        background-color: black;
+        text-align: center;
+        line-height: 80px;
+      }
     </style>
   </head>
   <body>
@@ -186,8 +468,8 @@
           <a href="#portfolio"
             ><i class="fa fa-th-large fa-fw icon-margin"></i>PORTFOLIO</a
           >
-          <a href="about"><i class="fa fa-user icon-margin"></i>ABOUT</a>
-          <a href="contact"
+          <a href="#about"><i class="fa fa-user icon-margin"></i>ABOUT</a>
+          <a href="#contact"
             ><i class="fa fa-envelope icon-margin"></i>CONTACT</a
           >
         </div>
@@ -275,10 +557,165 @@
           </div>
         </div>
         <!-- 어바웃 미 섹션 -->
-        <div id="about"></div>
+        <div id="about">
+          <!-- 어바웃 미 이미지 -->
+          <div id="about-img-container">
+            <img src="https://www.w3schools.com/w3images/avatar_g.jpg" alt="어바웃 미 이미지">
+            <img src="https://www.w3schools.com/w3images/me2.jpg" alt="어바웃 미 이미지">
+          </div>
+          <!-- 어바웃 미 텍스트 -->
+          <div id="about-text-container">
+            <h3>About Me</h3>
+            <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+          </div>
+          <!-- 테크니컬 스킬 -->
+          <div id="technical-skill-container">
+            <h3>Technical Skills</h3>
+            <div id="skill-list-container">  
+            <p>Photography</p>
+            <div class="bar-container">
+              <div class="progress-bar" style="width:95%">95%</div>
+            </div>
+            <p>Web Design</p>
+            <div class="bar-container">
+              <div class="progress-bar" style="width:85%">85%</div>
+            </div>
+            <p>Photoshop</p>
+            <div class="bar-container">
+              <div class="progress-bar" style="width:80%">80%</div>
+            </div>
+            <button id="download-button">
+              <i class="fa fa-download icon-margin"></i>Download Resume
+            </button>
+          </div>
+          <h3 id="how-much">How much I charge</h3>
+          <div id="charge-container">
+            <div class="price-table-container">
+              <ul>
+                <li id="basic" class="table-title">Basic</li>
+                <li class="table-content">Web Design</li>
+                <li class="table-content">Photography</li>
+                <li class="table-content">1GB Storage</li>
+                <li class="table-content">Mail Support</li>
+                <li class="table-content price-container">
+                  <div class="price">$10</div>
+                  <span>per month</span>
+                </li>
+                <li class="table-content sign-up-button-container">
+                  <button class="sign-up-button">Sign Up</button>
+                </li>
+              </ul>
+              <ul>
+                <li id="pro" class="table-title">Pro</li>
+                <li class="table-content">Web Design</li>
+                <li class="table-content">Photography</li>
+                <li class="table-content">50GB Storage</li>
+                <li class="table-content">Endless Support</li>
+                <li class="table-content price-container">
+                  <div class="price">$25</div>
+                  <span>per month</span>
+                </li>
+                <li class="table-content sign-up-button-container">
+                  <button class="sign-up-button">Sign Up</button>
+                </li>
+              </ul>
+              <ul>
+                <li id="premium" class="table-title">Premium</li>
+                <li class="table-content">Web Design</li>
+                <li class="table-content">Photography</li>
+                <li class="table-content">Unlimited Storage</li>
+                <li class="table-content">Endless Support</li>
+                <li class="table-content price-container">
+                  <div class="price">$25</div>
+                  <span>per month</span>
+                </li>
+                <li class="table-content sign-up-button-container">
+                  <button class="sign-up-button">Sign Up</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <!-- 컨택트 섹션 -->
-        <div id="contact"></div>
+        <div id="contact">
+          <h3>Contact Me</h3>
+          <div id="contact-method-container">
+            <div id="contact-email" class="contact-method">
+              <p><i class="fa fa-envelope"></i></p>
+              <p>email@email.com</p>
+            </div>
+            <div id="contact-loc" class="contact-method">
+              <p><i class="fa fa-map-marker"></i></p>
+              <p>Chicago, US</p>
+            </div>
+            <div id="contact-tel" class="contact-method">
+              <p><i class="fa fa-phone"></i></p>
+              <p>512312311</p>
+            </div>
+          </div>
+          <hr>
+          <form action="#" id="contact-form" target="_blank">
+            <div class="form-input">
+              <label for="name">Name</label>
+              <input type="text" name="Name" class="" required="true">
+            </div>
+            <div class="form-input">
+              <label for="email">Email</label>
+              <input type="text" name="Email" class="" required="true">
+            </div>
+            <div class="form-input">
+              <label for="message">Message</label>
+              <input type="text" name="Message" class="" required="true">
+            </div>
+            <button type="submit"><i class="fa fa-paper-plane icon-margin"></i>Send Message</button>
+          </form>
+        </div>
       </div>
+      <!-- footer -->
+      <footer>
+        <div id="footer-text" class="footer">
+          <h4>FOOTER</h4>
+          <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+          <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" class="home">w3.css</a></p>
+        </div>
+        <div id="blog-post-container" class="footer">
+            <h4>BLOG POSTS</h4>
+            <div class="post">
+              <img src="https://www.w3schools.com/w3images/workshop.jpg" alt="">
+              <div>
+                <h6>Lorem</h6>
+                <p>Sed mattis nunc</p>
+              </div>
+            </div>
+            <hr>
+            <div class="post">
+              <img src="https://www.w3schools.com/w3images/gondol.jpg" alt="">
+              <div>
+                <h6>Ipsum</h6>
+                <p>Praes tinci sed</p>
+              </div>
+            </div>
+        </div>
+        <div id="popular-tags-container" class="footer">
+          <h4>POPULAR TAGS</h4>
+          <span id="travel">Travel</span>
+          <span>New York</span>
+          <span>London</span>
+          <span>IKEA</span>
+          <span>NORWAY</span>
+          <span>DIY</span>
+          <span>Ideas</span>
+          <span>Baby</span>
+          <span>Family</span>
+          <span>News</span>
+          <span>Clothing</span>
+          <span>Shopping</span>
+          <span>Sports</span>
+          <span>Games</span>
+        </div>
+      </footer>
+      <div id="w3">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="home">w3.css</a></div>
     </div>
+    
   </body>
 </html>
