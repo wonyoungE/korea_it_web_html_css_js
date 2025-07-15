@@ -80,6 +80,7 @@
         right: 50%;
         /* 기준점을 div의 중앙으로 바꾸려면 trasform */
         transform: translate(-50%, -50%);
+        text-align: center;
       }
       #slide-image {
         width: 100vw;
@@ -259,6 +260,87 @@
         background-color: gray;
         color: black;
       }
+      #contact-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #contact-box {
+        width: 768px;
+        padding: 64px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #contact-box > h2 {
+        margin: 10px 0;
+        letter-spacing: 5px;
+        font-weight: 400;
+        font-size: 28px;
+      }
+      #contact-box > p {
+        margin: 15px 0;
+        color: #818080;
+        font-size: 14px;
+      }
+      #contact-info-box {
+        padding: 32px 0;
+        display: flex;
+      }
+      #contact-info {
+        width: 384px;
+        font-size: 18px;
+        font-weight: 400;
+      }
+      #contact-info > i {
+        width: 30px;
+        height: 18px;
+      }
+      #contact-form {
+        width: 384px;
+        display: flex;
+        flex-direction: column;
+      }
+      #contact-form * {
+        height: 40px;
+        font-size: 15px;
+      }
+      .form-input {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .form-input > input {
+        width: calc(100% - 8px);
+        padding: 8px;
+        border: 1px solid #a3a1a1;
+      }
+      #message {
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #a3a1a1;
+      }
+      #button-wrapper {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #contact-button {
+        width: 71px;
+        color: white;
+        background-color: black;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+        padding: 1px 6px;
+      }
+      #contact-button:hover {
+        background-color: #a3a1a1;
+        color: black;
+      }
     </style>
   </head>
   <body>
@@ -393,6 +475,29 @@
                 <button class="card-button">Buy Tickets</button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div id="contact-container">
+        <div id="contact-box">
+          <h2>CONTACT</h2>
+          <p><em>Fan? Drop a Note!</em></p>
+          <div id="contact-info-box">
+            <div id="contact-info">
+              <i class="fa-solid fa-location-dot"></i>Chicago, US <br />
+              <i class="fa-solid fa-phone"></i>Phone: +00 151515 <br />
+              <i class="fa-solid fa-envelope"></i>Email: mail@mail.com
+            </div>
+            <form action="#" id="contact-form">
+              <div class="form-input">
+                <input type="text" placeholder="Name" />
+                <input type="text" placeholder="Email" />
+              </div>
+              <input type="text" id="message" placeholder="Message" />
+              <div id="button-wrapper">
+                <button type="submit" id="contact-button">SEND</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

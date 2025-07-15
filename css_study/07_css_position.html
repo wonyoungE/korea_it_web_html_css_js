@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      main {
+        width: 300px;
+        height: 400px;
+        background-color: tomato;
+        overflow: auto;
+      }
+
+      div {
+        width: 200px;
+        height: 100px;
+        border: 1px solid yellow;
+        box-sizing: border-box;
+        text-align: center;
+        /* height와 똑같이 주면 텍스트가 세로 중앙 정렬된 것처럼 보임 */
+        /* 원래는 여백용 */
+        line-height: 100px;
+      }
+
+      div:nth-of-type(2) {
+        /* div 태그 중에 2번째 */
+        /* 여기서는 relative */
+        background-color: aqua;
+        opacity: 0.8;
+        /* relative: 원래 위치를 벗어나서 다른 곳에 배치하고 싶을 때 */
+        position: relative;
+        /* top, bottom, left, right로 위치 조정 */
+        top: 28px;
+        left: 48px;
+      }
+
+      #absolute {
+        background-color: blanchedalmond;
+        opacity: 0.8;
+        /* absolute: 자기 상위 태그 중에 position:relative인 애 찾아서 걔를 기준으로 잡음. 없으면 가장 상위 태그를 기준으로 잡고 독립적이다. 앵간하면 쓰지x */
+        position: absolute;
+        top: 28px;
+        left: 48px;
+      }
+
+      #fixed {
+        background-color: rgb(68, 43, 114);
+        opacity: 0.8;
+        /* fixed: 위치 고정, 뷰포트(브라우저 전체 화면 크기) 기준 */
+        position: fixed;
+        top: 100px;
+        left: 80px;
+      }
+      #sticky {
+        /* 딸려오는 거 */
+        background-color: chartreuse;
+        opacity: 0.8;
+        z-index: 100;
+        position: sticky;
+        top: 28px;
+        left: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="sticky">position: sticky</div>
+      <div>position: static;</div>  <!-- 기본값 : static -->
+      <div>position: relative;</div>
+      <div>position: static;</div>
+      <div id="absolute">position: absolute;</div>
+      <div>position: static;</div>
+      <div id="fixed">position: fixed;</div>
+      <div>position: static;</div>
+      <div>position: static;</div>
+      <div>position: static;</div>
+    </main>
+  </body>
+</html>

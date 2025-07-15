@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- https://accounts.kakao.com/login/?continue=https%3A%2F%2Fcs.kakao.com%2F#login -->
+    <title>카카오계정</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+      }
+      #container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        margin: 0;
+        font-weight: 400;
+      }
+      article {
+        width: 580px;
+        height: 480px;
+        margin: 40px auto 30px;
+        padding: 0 69px;
+        border: 1px solid #dbdbdb;
+        box-sizing: border-box;
+      }
+      #login-box {
+        height: 100%;
+        padding: 55px 0 50px;
+        box-sizing: border-box;
+      }
+      input {
+        width: 100%;
+        height: 45px;
+        padding: 10px 0 8px;
+        font-size: 18px;
+        box-sizing: border-box;
+        border: none;
+        color: #191919;
+        background-color: transparent; /* 투명 -> 배경색 씀 */
+        outline: none;
+        border: none;
+        border-bottom: 2px solid lightgray;
+        margin-bottom: 13px;
+        /* transition: all 0.2s ease-in-out; */
+      }
+      input:focus {
+        border-bottom: 2px solid black;
+      }
+      #checkbox-container {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin: 0 10px 0 0;
+        cursor: pointer;
+      }
+      #checkbox-container > label {
+        color: #666666;
+        font-size: 14px;
+        line-height: 20px;
+        cursor: pointer;
+      }
+      #btn-container {
+        width: 100%;
+        padding-top: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #btn-container > button {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #191919;
+        font-weight: 400;
+        padding: 0;
+        cursor: pointer;
+      }
+      #btn-container > button:nth-of-type(1) {
+        background-color: #fee500;
+      }
+      #btn-container > button:nth-of-type(1):hover {
+        background-color: #f4dc00;
+      }
+      #btn-container > button:nth-of-type(2):hover {
+        background-color: #e6e6e6;
+      }
+      #line {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 15px 0;
+        text-align: center;
+      }
+      #line::before,
+      #line::after {
+        content: "";
+        display: inline-block;
+        height: 1px;
+        width: calc(50% - 20px);
+        background-color: rgba(0, 0, 0, 0.06);
+        margin: 8px 0;
+      }
+      #line > span {
+        font-size: 12px;
+        text-align: center;
+        width: 40px;
+        color: #828282;
+      }
+      #info-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 26px;
+      }
+      #info-container a {
+        font-size: 12px;
+        color: #191919;
+        text-decoration: none;
+      }
+      a:nth-of-type(1)::after {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 10px;
+        margin: 0 10px;
+        background-color: rgba(0, 0, 0, 0.06);
+      }
+      #info-container > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <main>
+        <h1>kakao</h1>
+        <article>
+          <div id="login-box">
+            <form action="#" id="login-form">
+              <input
+                type="text"
+                placeholder="카카오메일 아이디, 이메일, 전화번호"
+              />
+              <input type="password" placeholder="비밀번호" />
+              <div id="checkbox-container">
+                <input type="checkbox" id="save-login" />
+                <label for="save-login">간편로그인 정보 저장</label>
+              </div>
+            </form>
+            <div id="btn-container">
+              <button>로그인</button>
+              <span id="line">
+                <span>또는</span>
+              </span>
+              <button type="submit">QR코드 로그인</button>
+            </div>
+            <div id="info-container">
+              <a href="#">회원가입</a>
+              <div>
+                <a href="#">계정 찾기</a>
+                <a href="#">비밀번호 찾기</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>
