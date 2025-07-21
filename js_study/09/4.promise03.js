@@ -4,7 +4,6 @@ function login(username) {
     setTimeout(() => {
       if (username) {
         // 로그인 성공
-
         resolve(username); // 성공 시 resolve 호출
       } else {
         reject(new Error("로그인 실패"));
@@ -31,6 +30,7 @@ function addToCart(product) {
 function checkOut(cardNum, product) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      // 결제 성공
       if (cardNum && product) {
         resolve({ product: `${product}`, cardNum: `${cardNum}` });
       } else {
@@ -41,7 +41,7 @@ function checkOut(cardNum, product) {
 }
 
 login("손원영")
-  .then((username) => {
+  .then((username) => { // 로그인 성공하면 실행할 콜백 함수, resolve가 username 반환해줌
     console.log(`${username}님이 로그인했습니다.`);
     return addToCart("감자");
   })

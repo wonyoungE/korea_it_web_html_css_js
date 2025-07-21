@@ -19,7 +19,7 @@
 //   setTimeout(() => {
 //     const data = { name: "손원영" }; // 서버에서 받아온 데이터라고 가정
 //     if (data) {
-//       // 비동기 작업 성공
+//       // data가 있으면 비동기 작업 성공
 //       console.log("서버 요청 성공");
 //       resolve();
 //     } else {
@@ -30,9 +30,10 @@
 // });
 
 // console.log(promise); // 위에 객체 생성과 동시에 실행되는 거 -> 2초 후에 실행
-// // 그래서 pending 상태, 브라우저 콘솔에서 확인
+// promise는 2초 후에 실행되므로 console.log()가 먼저 실행됨.
+// 2초 지나기 전이라 pending 상태, 브라우저 콘솔에서 확인
 
-// setTimeout(() => {  // 3초 후에 promise 찍어봣더니 콘솔에 fulfilled 상태
+// setTimeout(() => {  // 3초 후에 promise 찍어봤더니 콘솔에 fulfilled 상태, 2초 지나서 promise의 비동기 함수가 실행되었기 때문에.
 //   console.log(promise);
 // }, 3000);
 

@@ -105,8 +105,7 @@ const discountProducts = products
 //     name: product.name, price: product.price * 0.9 }));
 console.log(discountProducts);
 
-// ================================================================
-// 숙제
+//=================================================
 const baseConfig = {
   theme: "dark",
   fontSize: "16px",
@@ -114,4 +113,23 @@ const baseConfig = {
 };
 
 // newConfig를 만드세요.
-// 
+// theme는 "light"로 변경하고,
+// padding: "20px" 속성을 새로 추가하세요.
+
+// 객체 Spread 문법을 사용하여 newConfig 생성
+const newConfig = {
+  ...baseConfig,
+  theme: "light",
+  padding: "20px",
+};
+
+console.log(newConfig);
+
+//==================================================
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5];
+
+// 배열 Spread 문법을 사용하여 배열 합치기
+const arr = [...arr1, ...arr2];
+
+console.log(arr);

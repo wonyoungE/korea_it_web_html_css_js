@@ -4,6 +4,7 @@
 // 비동기 작업이 완료된 후에 호출되는 콜백 함수
 function getData(callback) {
   // 서버 통신 흉내낸 것(지금 서버에 요청을 날릴 수는 없으니)
+  // 2초 뒤 실행
   setTimeout(() => {
     console.log("서버에서 데이터 받아옴~");
     callback({ name: "손원영" }); // callback 실행, 서버에서 가져온 데이터를 줌
@@ -22,13 +23,13 @@ function getData(callback) {
         console.log(name)
     }
 
-    getData(callback()); => 안 됨
+    getData(callback()); => 안 됨, 이렇게 실행하면 무조건 인자를 줘야하기 때문에
 */
 
 // 쇼핑몰
 // callback 함수 -> 각각의 기능이 실행된 후 실행되어야 할 함수
 // 로그인
-function login(username, callback) {
+function login(username, callback) {  // callback-> 익명 함수. 여기서는 인자가 뭐가 들어가는지 안알려줘도 됨.. 그냥 함수 들어온다.. 이런 거
   setTimeout(() => {
     // 1초 뒤 로그인 완료, callback 함수 실행
     callback(username);
@@ -49,11 +50,13 @@ function checkOut(cardNum, product, callback) {
   }, 1000);
 }
 
-login("손원영", (username) => {
+login("손원영", (username) => { // 1초 뒤 로그인 >성공 후< 실행할 콜백 함수
   console.log(`${username}님이 로그인했습니다.`);
-  addToCart("감자", (product) => {
+  // 콜백 함수에서 장바구니 담기 함수 호출
+  addToCart("감자", (product) => {  // 장바구니 담기 >성공 후< 실행할 콜백 함수
     console.log(`${product}를 장바구니에 담았습니다.`);
-    checkOut("1234-5678-9012-3456", product, (cardNum, product) => {
+    // 콜백 함수에서 결제 함수 호출
+    checkOut("1234-5678-9012-3456", product, (cardNum, product) => { // 결제 성공 후 실행할 콜백 함수
       console.log(`${product}에 대한 결제가 완료되었습니다. 카드번호: ${cardNum}`);
       // 만약에 콜백 함수가 더 있다면..? => 콜백 지옥
     });
