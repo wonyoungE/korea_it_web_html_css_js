@@ -57,3 +57,4 @@ login("손원영")
   .catch((error) => {
     console.log(error);
   });
+// promise chaining -> then이 promise 객체를 반환하기 때문에 가능
