@@ -21,7 +21,7 @@ const promise = getData();
 // promise.then().then().then().then()...
 // .then() 메서드는 새로운 Promise 객체를 반환
 // promise chaining -> 여러가지 비동기 작업 연속 수행 가능
-// promise
+// promise  // then 자체가 promise의 상태가 resolve
 //   .then((data) => {  // then 안의 함수 = callback 함수 / promise가 콜백 지옥 벗어나기 위해 사용하는 거임..
 //      // promise 상태가 성공일 때 실행하는 callback 함수가 then 안의 익명 함수임
 //     console.log(data);
@@ -33,7 +33,7 @@ const promise = getData();
 
 // 축약하면
 // promise
-//   .then((data) => getData())
+//   .then((data) => getData()) // 성공했으면(=resolve(data)) => getData() 다음 메서드 호출
 //   .then((data) => getData())
 //   .then((data) => getData())
 //   .then((data) => console.log(data));
