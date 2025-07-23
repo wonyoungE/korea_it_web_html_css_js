@@ -8,11 +8,12 @@ let studentInputValue = {
 };
 
 // input 태그에 무언가를 넣으면 호출되는 함수
-
 function handleRegisterOnkeyup(e) {
   studentInputValue = {
     ...studentInputValue,
-    [e.target.name]: e.target.value,    // input 태그의 name 속성을 key로 잡음
+    // 덮어쓰기하는 거 아님?? -> 그러면 한 번 바꿨을 때 ""면 안되는 거 아닌가 ㅜ 초기화 언제 해준 거
+    // 그래서 내가 backspace로 지워주면 -> 이것도 onkeyup에 해당돼서 ""되는 거
+    [e.target.name]: e.target.value, // input 태그의 name 속성을 key로 잡음
   };
 }
 
@@ -36,6 +37,19 @@ const handleRegisterOnClick = (e) => {
   studentList = [...studentList, newStudent];
 
   console.log(newStudent);
+  // input 태그 초기화
+  const inputList = document.querySelectorAll("input");
+  console.log(inputList);
+  inputList.forEach((i) => (i.value = ""));
+
+  // 유효성 검사 안하면 이전에 등록했던 객체 정보 그대로 들어있음
+  // 초기화 해주자
+  studentInputValue = {
+    name: "",
+    age: "",
+    address: "",
+  };
+
   loadStudentList();
 };
 
