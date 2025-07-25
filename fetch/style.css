@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 600px;
+  padding: 30px 40px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+h1 {
+  color: #007bff;
+  margin-bottom: 10px;
+  font-size: 2em;
+}
+
+header > p {
+  margin-bottom: 30px;
+  font-size: 1em;
+  color: #666;
+  font-weight: 500;
+}
+
+.fetch-container {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fcfcfc;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+#fetchBtn {
+  color: white;
+  padding: 12px 25px;
+  margin-bottom: 25px;
+  border: none;
+  border-radius: 6px;
+  background-color: #28a745;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+#fetchBtn:hover {
+  background-color: #309c48;
+  transform: translateY(-2px);
+}
+#fetchBtn:active {
+  transform: translateY(0);
+}
+
+#postContainer {
+  min-height: 120px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.post-text {
+  font-style: italic;
+  font-size: 0.9em;
+  padding-top: 30px;
+  text-align: center;
+  color: #999;
+}
+
+.placeholder-text {
+  font-style: italic;
+  font-size: 0.9em;
+  padding-top: 30px;
+  text-align: center;
+  color: #999;
+}
+
+#postContainer {
+  text-align: left;
+}
+
+#postContainer > p {
+  /* 줄바꿈 유지 */
+  white-space: pre-wrap;
+  /* 긴 단어 줄바꿈 */
+  /* word-wrap: break-word; */
+  font-size: 0.9em;
+}
+
+h2 {
+  color: #007bff;
+}

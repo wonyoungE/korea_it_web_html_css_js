@@ -5,18 +5,58 @@ const todoList = document.querySelector("#todoList");
 let todos = [];
 let nextTodoId = 1;
 
+// localstorage
+// 웹 브라우저가 제공하는 작은 데이터 저장 공간
+// 로컬 스토리지는 항상 문자열 형태로 저장
+// 이름(키)와 내용(값) 한 쌍 => JSON 문자열 형태
+// 자바스크립트의 객체와 자바스크립트의 배열 두 가지 형태가 json 형태와 유사함
+
+// 현재 todo 데이터를 로컬스토리지에 저장하는 함수
+function saveTodoLocalStorage() {
+  // localStorage -> getItem, setItem, removeItem
+
+  // 저장 -> setItem(String key, String value)
+  // todos 배열을 저장할 것
+  // JSON.stringify(): 자바스크립트의 배열 또는 객체를 JSON 문자열로 변환
+  // key: todos, value: todos의 JSON 문자열 형태
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+// 로컬스토리지에서 todo 데이터를 불러오는 함수
+function loadTodoLocalStorage() {
+  // 불러오기 -> getItem(String key)
+  const localStorageTodo = localStorage.getItem("todos");
+  console.log(localStorageTodo); // 문자열 형태로 출력됨
+
+  if (localStorageTodo) {
+    todos = JSON.parse(localStorageTodo);
+    console.log(todos); // 배열 형태로 출력됨
+    // 만약에 스토리지에 저장된 것이 있다면?
+    // todoId를 어떻게 구할 것??
+    // 할 일을 삭제시킬 수도 있으니까.. map으로 순회해서 id가 가장 큰 값을 가져옴
+    // 거기서 +1을 해줘야 다음 할 일 번호임
+    if (todos.length > 0) {
+      // 저장되어있는 투두를 불러와 다음 할 일을 추가할 때 사용할 ID를 설정
+      // 투두들 중 가장 큰 Id를 가져와서 +1 해줌
+      // Math.max()는 배열 넣어주면 알아서 제일 큰 값 반환해줌
+      nextTodoId = Math.max(...todos.map((todo) => todo.id)) + 1;
+    } else {
+      nextTodoId = 1;
+    }
+  } else {
+    // 로컬 스토리지의 todo가 비어있으면
+    todos = [];
+    nextTodoId = 1;
+  }
+}
+
 function renderTodo() {
-  // 하나씩 추가하는 게 x
-  // ul태그 안을 싹 지우고 새로운 할 일 추가해서 넣어주기
   todoList.innerHTML = "";
 
   todos.forEach((todo) => {
     // li태그를 만듦
     const listItem = document.createElement("li");
-    listItem.dataset.id = todo.id; // 순회 굳이 안해도 됨
-    // dataset -> 요소에 추가적인 사용자 정의 데이터 저장
-    // 개발자가 특정 html 요소에 추가적인 데이터를 저장할 목적으로 사용
-    // 브라우저는 이 속성들을 특별히 해석하지 않음
+    listItem.dataset.id = todo.id;
 
     // todo의 isEditing에 따라 return값 변경
     if (todo.isEditing) {
@@ -43,7 +83,7 @@ function renderTodo() {
 }
 
 function addTodo() {
-  const todoText = todoInput.value.trim(); // 공백 제거
+  const todoText = todoInput.value.trim();
 
   if (todoText === "") {
     alert("할 일을 입력해주세요.");
@@ -57,6 +97,8 @@ function addTodo() {
   };
 
   todos.push(newTodo);
+  saveTodoLocalStorage(); // 브라우저 껐다 켜도 남아있음
+
   todoInput.value = "";
   todoInput.focus(); // input value 초기화 후 바로 입력 가능
 
@@ -70,25 +112,19 @@ function deleteTodo(id) {
   } else {
     // 아이디로 확인해서 거르기
     todos = todos.filter((todo) => todo.id !== id);
+    saveTodoLocalStorage();
     renderTodo();
   }
 }
 
 function editTodo(id) {
-  // map을 돌리면서 해당하는 id의 todo의 isEditing을 true로 변환할 것
   todos = todos.map((todo) =>
     todo.id === id
       ? { ...todo, isEditing: true }
       : { ...todo, isEditing: false }
   );
-  /* 혹은
-  todos = todos.map((todo) => {
-     return todo.id === id
-      ? { ...todo, isEditing: true }
-      : { ...todo, isEditing: false };
-    });
-  */
 
+  saveTodoLocalStorage();
   // idEditing 업데이트 후 다시 렌더링
   renderTodo();
 
@@ -111,6 +147,7 @@ function saveTodo(id, newText) {
       ? { ...todo, text: newText.trim(), isEditing: false }
       : todo;
   });
+  saveTodoLocalStorage();
   renderTodo();
 }
 
@@ -122,24 +159,19 @@ function cancelEditTodo(id) {
 }
 
 // addEventListner(인자1, 인자2)
-// 인자1 -> 이벤트 종류
-// 인자2 -> 이벤트 발생 시 실행할 함수, 익명함수, 그냥 함수 가능
-// 함수명 vs 함수명() 차이점? 함수명()은 리소스 읽으면서 바로 호출시킴
 addTodoBtn.addEventListener("click", addTodo);
-// 엔터키 눌렀을 때도 등록
-// 버튼 누른 거랑 같은 동작 실행
 todoInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     addTodoBtn.click();
   }
 });
 
-// ul 태그가 갖고있는 애들한테서 일어나는 클릭이벤트 모두 감지
+// ul 태그가 갖고있는 애들한테서 일어나는 클릭 이벤트 모두 감지
 todoList.addEventListener("click", (event) => {
   // 해당 이벤트가 일어난 요소 가져옴(여기서는 클릭된 버튼을 가져옴)
   // <button class="delete-btn">삭제</button>
   const target = event.target;
-  console.log(target)
+  console.log(target);
 
   // 클릭된 요소(버튼)의 가장 가까운 부모 li, 근데 이제 data에 id 속성을 가진
   // []: 속성 emmet 문법
@@ -164,3 +196,5 @@ todoList.addEventListener("click", (event) => {
 
 // 로컬 스토리지 -> 어플리케이션에 배열 저장해두기
 // 이거 나중에 로그인 구현할 때 로컬 스토리지에 토큰 저장해둘 것
+loadTodoLocalStorage(); // 문자열 형태로 가져옴
+renderTodo(); // 렌더링까지 해야 화면에 출력
