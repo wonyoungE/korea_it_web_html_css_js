@@ -24,6 +24,7 @@ async function getData() {
     const response = await fetch(API_URL);
     if (!response.ok) {
       // ok를 쓰든 status를 쓰든
+      // response.ok || response.status !== 200
       throw new Error(
         `예외 발생! 상태: ${response.status} ${response.statusText}`
       );
