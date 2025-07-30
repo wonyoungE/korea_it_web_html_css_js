@@ -51,6 +51,69 @@ function getPayload() {
   }
 }
 
+// 내비게이션 바 변경 함수
+// 토큰이 있는 경우, 없는 경우로 나누기
+async function updateNavBar() {
+  const accessToken = localStorage.getItem("AccessToken");
+
+  if (accessToken) {
+    navSignin.classList.add("invisible");
+    navSignup.classList.add("invisible");
+    navBoard.classList.remove("invisible");
+    navWrite.classList.remove("invisible");
+
+    const payload = getPayload();
+
+    if (payload) {
+      const response = await fetch(`${API_BASE_URL}/user/${payload.jti}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const responseData = await response.json();
+      if (responseData.status === "success") {
+        const username = responseData.data.username;
+        const header = document.querySelector("header");
+
+        // greeting 중복 방지
+        let greeting = document.querySelector("#greeting");
+        if (greeting) {
+          greeting.remove();
+        }
+
+        greeting = document.createElement("p");
+        greeting.id = "greeting";
+        greeting.innerHTML = `<span>${username}</span>님, 안녕하세요! <button id="logout-btn">로그아웃</button>`;
+        header.appendChild(greeting);
+
+        // 로그아웃 버튼 이벤트리스너 등록
+        const logoutBtn = document.querySelector("#logout-btn");
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", logoutHandler);
+        }
+
+        changePages(pageBoard);
+      } else {
+        console.log(responseData.message);
+      }
+    }
+  } else {
+    navSignin.classList.remove("invisible");
+    navSignup.classList.remove("invisible");
+    navBoard.classList.remove("invisible");
+    navWrite.classList.remove("invisible");
+
+    const greeting = document.querySelector("#greeting");
+    if (greeting) {
+      greeting.remove();
+    }
+    // 로그인 페이지로 전환
+    changePages(pageSignin);
+  }
+}
+
 // 페이지 전환 함수
 function changePages(pageElement) {
   const pages = document.querySelectorAll(".page");
@@ -153,6 +216,9 @@ async function signinHandler(event) {
       localStorage.setItem("AccessToken", responseData.data);
       signinForm.reset(); // 로그인 폼 초기화
 
+      // 내비게이션 바 상태 변경
+      await updateNavBar();
+
       // 게시판 목록으로 전환
       // 비동기여야 함..
       await renderBoard();
@@ -161,6 +227,12 @@ async function signinHandler(event) {
     console.log("로그인 요청 오류 발생: ", error);
     alert("서버와 통신중 오류가 발생했습니다.");
   }
+}
+
+// 로그아웃 요청 함수
+async function logoutHandler() {
+  localStorage.removeItem("AccessToken");
+  await updateNavBar();
 }
 
 // 게시물 목록 요청 함수
@@ -256,9 +328,7 @@ async function addBoard(event) {
   }
 }
 
-// 수업 방식
 navSignin.addEventListener("click", () => {
-  console.log("방법1");
   changePages(pageSignin);
 });
 navSignup.addEventListener("click", () => {
@@ -276,10 +346,9 @@ boardList.addEventListener("click", (event) => {
   getBoard(target.dataset.boardId);
 });
 
-// 자바스크립트는 싱글스레드.. 근데 콘솔에는 방법1이 먼저 찍히는 이유는?
-// 수업 방식 -> 버튼 요소 직접 접근 (타겟 단계에 실행)
-// 내 방식 -> 버튼 요소의 부모로부터 접근 (버블링 단계 실행)
-
 signupForm.addEventListener("submit", signupHandler);
 signinForm.addEventListener("submit", signinHandler);
 writeForm.addEventListener("submit", addBoard);
+
+// 화면 처음 렌더링 시 내비게이션바 업뎃
+updateNavBar();

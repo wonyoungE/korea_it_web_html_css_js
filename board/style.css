@@ -9,9 +9,10 @@ body {
   min-height: 100vh;
 }
 
+/* 헤더 */
 header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background-color: #ff8800;
 }
@@ -19,7 +20,6 @@ header {
 nav {
   margin: 0;
   padding: 0;
-  display: flex;
 }
 
 nav > button {
@@ -37,6 +37,34 @@ nav > button {
 button:hover {
   background-color: white;
   color: #ff8800;
+}
+
+.invisible {
+  display: none;
+}
+
+#greeting {
+  padding: 0;
+  margin: 0;
+  padding-right: 10px;
+}
+
+#greeting > span {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+#logout-btn {
+  margin: 0;
+  margin-left: 5px;
+  padding: 4px 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#logout-btn:hover {
+  font-weight: 500;
 }
 
 main {
