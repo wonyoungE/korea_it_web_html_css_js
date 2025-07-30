@@ -46,8 +46,30 @@
           <h2>게시물 목록</h2>
           <ul id="board-list"></ul>
         </div>
+        <!-- 게시물 상세-->
+        <div id="board-content" class="page">
+          <h2>게시물 상세</h2>
+          <div id="content-container">
+            <h2 id="board-title">제목</h2>
+            <p id="board-content">내용</p>
+          </div>
+        </div>
         <!-- 글쓰기 -->
-        <div id="page-write" class="page">게시판 글쓰기</div>
+        <div id="page-write" class="page">
+          <h2>새 글 작성</h2>
+          <form id="write-form">
+            <input
+              type="text"
+              id="write-title"
+              placeholder="제목을 입력하세요"
+            />
+            <textarea
+              id="write-content"
+              placeholder="내용을 입력하세요"
+            ></textarea>
+            <button type="submit" class="btn-submit">게시글 등록</button>
+          </form>
+        </div>
       </main>
 
       <script src="script.js"></script>

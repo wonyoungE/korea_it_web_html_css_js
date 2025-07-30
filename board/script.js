@@ -11,6 +11,7 @@ const navigation = document.querySelector("nav");
 const pageSignin = document.querySelector("#page-signin");
 const pageSignup = document.querySelector("#page-signup");
 const pageBoard = document.querySelector("#page-board");
+const pageBoardContent = document.querySelector("#board-content");
 const pageWrite = document.querySelector("#page-write");
 
 // 회원가입 / 로그인 폼
@@ -20,7 +21,35 @@ const signinForm = document.querySelector("#signin-form");
 // 게시물 목록
 const boardList = document.querySelector("#board-list");
 
+// 게시물 추가
+const writeForm = document.querySelector("#write-form");
+
 let boards = [];
+
+// AccessToken 디코딩
+function getPayload() {
+  const token = localStorage.getItem("AccessToken");
+  if (!token) {
+    alert("로그인이 필요합니다.");
+    changePages(pageSignin);
+    return null;
+  }
+
+  try {
+    // 토큰을 . 기준으로 분리해서 payload 가져오기
+    // 토큰 3개로 나뉨 -> 그 중 두번째가 payload(사용자 정보)
+    const payloadBase64 = token.split(".")[1];
+    // 디코딩
+    const decodedPayload = atob(payloadBase64);
+    // 디코딩된 JSON문자열을 자바스크립트 객체로 변환
+    const payload = JSON.parse(decodedPayload);
+
+    return payload;
+  } catch (error) {
+    console.log(error);
+    alert("토큰 오류 발생");
+  }
+}
 
 // 페이지 전환 함수
 function changePages(pageElement) {
@@ -134,7 +163,7 @@ async function signinHandler(event) {
   }
 }
 
-// 게시물 리스트 불러오는 함수
+// 게시물 목록 요청 함수
 // 게시판 목록 버튼 눌렀을 때, 로그인 버튼 눌렀을 때
 async function renderBoard() {
   // 요청을 보내기 전에 AccessToken 빼오기
@@ -164,9 +193,10 @@ async function renderBoard() {
       alert(responseData.message);
     } else {
       boards = responseData.data;
-      console.log(boards);
+
+      boardList.innerHTML = "";
       boards.forEach((board) => {
-        boardList.innerHTML += `<li>${board.title}</li>`;
+        boardList.innerHTML += `<li data-board-id=${board.boardId}>${board.title}</li>`;
       });
 
       changePages(pageBoard);
@@ -177,21 +207,54 @@ async function renderBoard() {
   }
 }
 
-// 나의 방식
-// navigation.addEventListener("click", (event) => {
-//   console.log("방법2");
-//   const target = event.target;
+// 게시물 상세 페이지
+async function getBoard(boardId) {}
 
-//   if (target.id === "nav-signin") {
-//     changePages(pageSignin);
-//   } else if (target.id === "nav-signup") {
-//     changePages(pageSignup);
-//   } else if (target.id === "nav-board") {
-//     changePages(pageBoard);
-//   } else if (target.id === "nav-write") {
-//     changePages(pageWrite);
-//   }
-// });
+// 게시물 추가 요청 함수
+async function addBoard(event) {
+  event.preventDefault();
+  const accessToken = localStorage.getItem("AccessToken");
+  const payload = await getPayload();
+
+  const writeTitle = document.querySelector("#write-title");
+  const writeContent = document.querySelector("#write-content");
+
+  const addBoardData = {
+    title: writeTitle.value,
+    content: writeContent.value,
+    userId: payload.jti,
+  };
+
+  if (!addBoardData.title || !addBoardData.title) {
+    alert("제목과 내용 모두 입력해주세요.");
+    return;
+  }
+
+  // 게시물 추가 요청
+  try {
+    const response = await fetch(`${API_BASE_URL}/board/add`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(addBoardData),
+    });
+
+    const responseData = await response.json();
+    if (responseData.status !== "success") {
+      alert(responseData.message);
+    } else {
+      alert(responseData.message);
+      writeForm.reset();
+
+      await renderBoard();
+    }
+  } catch (error) {
+    console.log(error);
+    alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
+  }
+}
 
 // 수업 방식
 navSignin.addEventListener("click", () => {
@@ -208,9 +271,15 @@ navWrite.addEventListener("click", () => {
   changePages(pageWrite);
 });
 
+boardList.addEventListener("click", (event) => {
+  const target = event.target;
+  getBoard(target.dataset.boardId);
+});
+
 // 자바스크립트는 싱글스레드.. 근데 콘솔에는 방법1이 먼저 찍히는 이유는?
 // 수업 방식 -> 버튼 요소 직접 접근 (타겟 단계에 실행)
 // 내 방식 -> 버튼 요소의 부모로부터 접근 (버블링 단계 실행)
 
 signupForm.addEventListener("submit", signupHandler);
 signinForm.addEventListener("submit", signinHandler);
+writeForm.addEventListener("submit", addBoard);
