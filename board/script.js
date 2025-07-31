@@ -11,7 +11,7 @@ const navigation = document.querySelector("nav");
 const pageSignin = document.querySelector("#page-signin");
 const pageSignup = document.querySelector("#page-signup");
 const pageBoard = document.querySelector("#page-board");
-const pageBoardContent = document.querySelector("#board-content");
+const pageDetail = document.querySelector("#page-detail");
 const pageWrite = document.querySelector("#page-write");
 
 // 회원가입 / 로그인 폼
@@ -23,6 +23,12 @@ const boardList = document.querySelector("#board-list");
 
 // 게시물 추가
 const writeForm = document.querySelector("#write-form");
+
+// 게시물 상세
+const detailTitle = document.querySelector("#detail-title");
+const detailUserId = document.querySelector("#detail-userid");
+const detailContent = document.querySelector("#detail-content");
+const backBtn = document.querySelector("#backBtn");
 
 let boards = [];
 
@@ -93,7 +99,7 @@ async function updateNavBar() {
         if (logoutBtn) {
           logoutBtn.addEventListener("click", logoutHandler);
         }
-
+        await renderBoard();
         changePages(pageBoard);
       } else {
         console.log(responseData.message);
@@ -268,7 +274,13 @@ async function renderBoard() {
 
       boardList.innerHTML = "";
       boards.forEach((board) => {
-        boardList.innerHTML += `<li data-board-id=${board.boardId}>${board.title}</li>`;
+        const listItem = document.createElement("li");
+        listItem.innerText = board.title;
+
+        listItem.addEventListener("click", () => {
+          getBoard(board.boardId);
+        });
+        boardList.appendChild(listItem);
       });
 
       changePages(pageBoard);
@@ -279,28 +291,64 @@ async function renderBoard() {
   }
 }
 
-// 게시물 상세 페이지
-async function getBoard(boardId) {}
+// 게시물 단건 조회 요청 함수
+async function getBoard(boardId) {
+  const accessToken = localStorage.getItem("AccessToken");
+
+  if (!accessToken) {
+    alert("게시물을 조회하려면 로그인이 필요합니다.");
+    changePages(pageSignin);
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/board/${boardId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const responseData = await response.json();
+
+    if (responseData.status !== "success") {
+      alert(responseData.message);
+    } else {
+      const board = responseData.data;
+      console.log(board);
+      detailTitle.innerText = board.title;
+      detailUserId.innerText = `작성자: ${board.user.username}`;
+      detailContent.innerText = board.content;
+
+      changePages(pageDetail);
+    }
+  } catch (error) {}
+}
 
 // 게시물 추가 요청 함수
 async function addBoard(event) {
   event.preventDefault();
-  const accessToken = localStorage.getItem("AccessToken");
   const payload = await getPayload();
 
-  const writeTitle = document.querySelector("#write-title");
-  const writeContent = document.querySelector("#write-content");
+  const titleInput = document.querySelector("#write-title");
+  const contentInput = document.querySelector("#write-content");
 
-  const addBoardData = {
-    title: writeTitle.value,
-    content: writeContent.value,
-    userId: payload.jti,
-  };
+  const accessToken = localStorage.getItem("AccessToken");
 
-  if (!addBoardData.title || !addBoardData.title) {
-    alert("제목과 내용 모두 입력해주세요.");
+  if (!accessToken) {
+    alert("글을 작성하려면 로그인이 필요합니다.");
+    changePages(pageSignin);
     return;
   }
+
+  if (!titleInput.value.trim() || !contentInput.value.trim()) {
+    alert("모든 항목을 입력해주세요.");
+    return;
+  }
+
+  const addBoardData = {
+    title: titleInput.value,
+    content: contentInput.value,
+    userId: payload.jti,
+  };
 
   // 게시물 추가 요청
   try {
@@ -341,14 +389,22 @@ navWrite.addEventListener("click", () => {
   changePages(pageWrite);
 });
 
-boardList.addEventListener("click", (event) => {
-  const target = event.target;
-  getBoard(target.dataset.boardId);
-});
+backBtn.addEventListener("click", renderBoard);
 
 signupForm.addEventListener("submit", signupHandler);
 signinForm.addEventListener("submit", signinHandler);
+// 엔터 눌러도 로그인 수행
+signinForm.addEventListener("keypress", (event) => {
+  if (event.key == "Enter") {
+    signinHandler;
+  }
+});
 writeForm.addEventListener("submit", addBoard);
+writeForm.addEventListener("keypress", (event) => {
+  if (event.key == "Enter") {
+    addBoard;
+  }
+});
 
 // 화면 처음 렌더링 시 내비게이션바 업뎃
 updateNavBar();

@@ -47,6 +47,7 @@ button:hover {
   padding: 0;
   margin: 0;
   padding-right: 10px;
+  color: white;
 }
 
 #greeting > span {
@@ -61,10 +62,13 @@ button:hover {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background-color: white;
+  color: #ff8800;
+  font-weight: 500;
 }
 
 #logout-btn:hover {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 main {
@@ -129,7 +133,8 @@ input:focus {
   width: 700px;
 }
 
-#page-board > h2 {
+#page-board > h2,
+#page-board-content > h2 {
   font-size: 2em;
   color: #ff8800;
 }
@@ -158,6 +163,63 @@ input:focus {
 
 .board-title {
   font-size: 1.2em;
+}
+
+/* 게시물 상세 페이지 */
+/* #page-detail {
+  width: 100%;
+  max-width: 700px;
+  min-height: 300px;
+} */
+
+#detail-container {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+#detail-container > * {
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+#detail-container > hr {
+  height: 1px;
+  border: none;
+  background-color: #dddddd;
+}
+
+#detail-title {
+  margin: 5px 0 10px 0;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+#detail-userid {
+  font-size: 0.9em;
+  color: #444;
+  margin: 0;
+  text-align: right;
+}
+
+#detail-content {
+  min-height: 250px;
+}
+
+#backBtn {
+  padding: 5px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff8800;
+  color: white;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+#backBtn:hover {
+  background-color: #f08204;
 }
 
 /* 게시글 등록 페이지 */
