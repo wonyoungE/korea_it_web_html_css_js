@@ -14,19 +14,20 @@
           <button id="nav-signup" class="btn-text">
             <span class="btn-text">회원가입</span>
           </button>
-          <button id="nav-changepw">
-            <span class="btn-text">비밀번호 변경</span>
-          </button>
           <button id="nav-board"><span class="btn-text">게시판</span></button>
           <button id="nav-write"><span class="btn-text">글쓰기</span></button>
         </nav>
         <div id="greeting">
-          <span></span>님, 안녕하세요!
-          <button id="btn-logout">로그아웃</button>
+          <div class="user-box">
+            <span id="username"></span>님, 안녕하세요!
+            <div class="user-actions">
+              <button id="btn-changePw">비밀번호 변경</button>
+              <button id="btn-logout">로그아웃</button>
+            </div>
+          </div>
         </div>
       </header>
       <main>
-        <!-- 4개로 나눠서 보여주고 말고 결정 -->
         <!-- 로그인 -->
         <div id="page-signin" class="page">
           <h2>로그인</h2>
@@ -82,7 +83,10 @@
             <hr />
             <p id="detail-content">내용</p>
           </div>
-          <button id="backBtn">목록으로</button>
+          <div class="btn-container">
+            <button id="btn-edit">수정하기</button>
+            <button id="btn-back">목록으로</button>
+          </div>
         </div>
         <!-- 글쓰기 -->
         <div id="page-write" class="page">
@@ -98,6 +102,25 @@
               placeholder="내용을 입력하세요"
             ></textarea>
             <button type="submit" class="btn-submit">게시글 등록</button>
+          </form>
+        </div>
+        <!-- 게시물 수정 -->
+        <div id="page-edit" class="page">
+          <h2>게시물 수정</h2>
+          <form id="edit-form">
+            <input
+              type="text"
+              id="edit-title"
+              placeholder="제목을 입력하세요"
+            />
+            <textarea
+              id="edit-content"
+              placeholder="내용을 입력하세요"
+            ></textarea>
+            <div class="btn-container">
+              <button type="submit" id="btn-ok" class="btn-submit">완료</button>
+              <button type="button" id="btn-cancel">취소</button>
+            </div>
           </form>
         </div>
       </main>

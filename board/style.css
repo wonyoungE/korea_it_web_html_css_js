@@ -21,7 +21,7 @@ header {
   left: 0;
   top: 0;
   z-index: 1;
-  box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.75);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 nav {
@@ -61,23 +61,64 @@ nav > button:hover .btn-text {
   color: white;
 }
 
-#greeting > span {
+#greeting span {
   font-size: 1.1em;
   font-weight: 600;
 }
 
-#btn-logout {
-  margin: 0;
-  margin-left: 5px;
-  padding: 4px 5px;
-  border: none;
-  border-radius: 4px;
+.user-box {
+  display: inline-block;
+  /* 기준 */
+  position: relative;
+}
+
+#username {
   cursor: pointer;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  /* 상대적 */
+  position: absolute;
+  top: 100%; /* 부모 요소의 아래 끝에 위치: 즉 user-box의 height 만큼 아래로 */
+  left: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  /* 평소에는 안보이게, 클릭 이벤트 발생 못하게 해두고 */
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.user-box:hover .user-actions {
+  /* user-box:hover일 때만 보이게, 클릭 이벤트 발생 가능하게 해둠 */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.user-actions button {
+  margin: 0;
+  padding: 4px 5px;
+  border: 1px solid #ff8800;
   background-color: white;
   color: #ff8800;
   font-weight: 500;
+  cursor: pointer;
 }
 
+#btn-changePw {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+#btn-logout {
+  border-top: none;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+#btn-changePw:hover,
 #btn-logout:hover {
   font-weight: 600;
 }
@@ -224,7 +265,15 @@ input:focus {
   border-bottom: 1px solid #dddddd;
 }
 
-#backBtn {
+.btn-container {
+  display: block;
+  align-self: end;
+}
+
+#btn-edit,
+#btn-back,
+#btn-ok,
+#btn-cancel {
   padding: 5px 15px;
   border: none;
   border-radius: 5px;
@@ -232,17 +281,21 @@ input:focus {
   color: white;
   font-size: 1em;
   cursor: pointer;
-  align-self: flex-end;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
-#backBtn:hover {
+
+#btn-edit:hover,
+#btn-back:hover,
+#btn-ok:hover,
+#btn-cancel:hover {
   background-color: #f08204;
 }
 
 /* 게시글 등록 페이지 */
 
-#write-content {
+#write-content,
+#edit-content {
   height: 200px;
   margin-bottom: 10px;
   padding: 10px;
@@ -251,9 +304,8 @@ input:focus {
   border-radius: 5px;
   box-sizing: border-box;
 }
-#write-content:focus {
+#write-content:focus,
+#edit-content:focus {
   outline: none;
   border: 2px solid #ff8800;
 }
-
-/* 비밀번호 변경 페이지 */

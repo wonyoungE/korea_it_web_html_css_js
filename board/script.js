@@ -5,7 +5,6 @@ const navSignin = document.querySelector("#nav-signin");
 // DOM 요소를 객체 형태로 확인할 수 있는 방법
 // console.dir(navSignin);
 const navSignup = document.querySelector("#nav-signup");
-const navChangepw = document.querySelector("#nav-changepw");
 const navBoard = document.querySelector("#nav-board");
 const navWrite = document.querySelector("#nav-write");
 const navigation = document.querySelector("nav");
@@ -17,11 +16,16 @@ const pageChangepw = document.querySelector("#page-changepw");
 const pageBoard = document.querySelector("#page-board");
 const pageDetail = document.querySelector("#page-detail");
 const pageWrite = document.querySelector("#page-write");
+const pageEdit = document.querySelector("#page-edit");
 
 // 회원가입 / 로그인 / 비밀번호 변경 폼
 const signupForm = document.querySelector("#signup-form");
 const signinForm = document.querySelector("#signin-form");
 const changepwForm = document.querySelector("#changepw-form");
+const editForm = document.querySelector("#edit-form");
+
+// 비밀번호 변경 버튼
+const changePwBtn = document.querySelector("#btn-changePw");
 
 // 로그아웃 버튼
 const logoutBtn = document.querySelector("#btn-logout");
@@ -37,8 +41,13 @@ const detailTitle = document.querySelector("#detail-title");
 const detailUsername = document.querySelector("#detail-username");
 const detailDate = document.querySelector("#detail-date");
 const detailContent = document.querySelector("#detail-content");
-const backBtn = document.querySelector("#backBtn");
+const editBtn = document.querySelector("#btn-edit");
+const backBtn = document.querySelector("#btn-back");
 
+// 게시물 수정 취소 버튼
+const cancelBtn = document.querySelector("#btn-cancel");
+
+let currentBoardId = -1;
 let boards = [];
 
 // AccessToken 디코딩
@@ -82,7 +91,7 @@ async function getUser() {
 
     const responseData = await response.json();
     if (responseData.status === "success") {
-      const greeting = document.querySelector("#greeting > span");
+      const greeting = document.querySelector(".user-box > span");
       greeting.innerText = `${responseData.data.username}`;
     } else {
       console.log(responseData.message);
@@ -279,9 +288,10 @@ async function getBoard(boardId) {
       detailTitle.innerText = board.title;
       detailUsername.innerText = `작성자: ${board.user.username}`;
       detailDate.innerText = `작성일: ${date}`;
-
       detailContent.innerText = board.content;
 
+      // 게시물 수정할 때 boardId 필요해서 전역으로 여기서 넣어주기..
+      currentBoardId = board.boardId;
       changePages(pageDetail);
     }
   } catch (error) {}
@@ -337,6 +347,59 @@ async function addBoard(event) {
   } catch (error) {
     console.log(error);
     alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
+  }
+}
+
+// 게시물 수정 요청 함수
+async function editBoard(event) {
+  event.preventDefault(); // 폼 제출 막기
+
+  const accessToken = localStorage.getItem("AccessToken");
+
+  if (!accessToken) {
+    alert("잘못된 접근입니다.");
+    location.reload(); // 어차피 여기서 토큰유무로 갈림
+    return;
+  }
+
+  const editTitleInput = document.querySelector("#edit-title");
+  const editContentInput = document.querySelector("#edit-content");
+  const editTitle = editTitleInput.value;
+  const editContent = editContentInput.value;
+
+  if (editTitle.trim() === "" || editContent.trim() === "") {
+    alert("모든 항목을 작성해주세요.");
+    return;
+  }
+
+  try {
+    // 게시물 아이디가 필요함 => 게시물 상세에서 전역으로 넣어줬음
+    const editBoardBody = {
+      boardId: currentBoardId,
+      title: editTitle,
+      content: editContent,
+    };
+
+    const response = await fetch(`${API_BASE_URL}/board/update`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editBoardBody),
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.status === "success") {
+      alert(responseData.message);
+      await getBoard(currentBoardId);
+      changePages(pageDetail);
+    } else {
+      alert(responseData.message);
+    }
+  } catch (error) {
+    alert(error);
   }
 }
 
@@ -396,7 +459,7 @@ async function changePw(event) {
     if (responseData.status !== "success") {
       alert(responseData.message);
     } else {
-      // 비밀번호 변경되면 로그아웃?
+      // 비밀번호 변경되면 로그아웃
       alert(responseData.message);
       changepwForm.reset();
       localStorage.removeItem("AccessToken");
@@ -414,14 +477,29 @@ navSignin.addEventListener("click", () => {
 navSignup.addEventListener("click", () => {
   changePages(pageSignup);
 });
-navChangepw.addEventListener("click", () => {
-  changePages(pageChangepw);
-});
 
 navBoard.addEventListener("click", renderBoard);
 
 navWrite.addEventListener("click", () => {
   changePages(pageWrite);
+});
+
+editBtn.addEventListener("click", (event) => {
+  const title = detailTitle.textContent;
+  const content = detailContent.textContent;
+
+  // 화면 전환 전에 input에 value 넣어주기..
+  const editTitleInput = document.querySelector("#edit-title");
+  const editContentInput = document.querySelector("#edit-content");
+
+  editTitleInput.value = title;
+  editContentInput.value = content;
+
+  changePages(pageEdit);
+});
+cancelBtn.addEventListener("click", () => {
+  getBoard(currentBoardId);
+  changePages(pageDetail);
 });
 
 backBtn.addEventListener("click", renderBoard);
@@ -432,6 +510,9 @@ logoutBtn.addEventListener("click", () => {
   } else {
     return;
   }
+});
+changePwBtn.addEventListener("click", () => {
+  changePages(pageChangepw);
 });
 
 signupForm.addEventListener("submit", signupHandler);
@@ -457,6 +538,13 @@ changepwForm.addEventListener("keypress", (event) => {
   }
 });
 
+editForm.addEventListener("submit", editBoard);
+editForm.addEventListener("keypress", (event) => {
+  if (event.key == "Enter") {
+    editBoard;
+  }
+});
+
 // 수업 - 토큰 있으면 게시판으로
 // HTML 문서가 완전히 로드되고 파싱되었을 때
 document.addEventListener("DOMContentLoaded", async () => {
@@ -469,8 +557,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await renderBoard();
   } else {
     greeting.style.display = "none";
-    navChangepw.style.display = "none";
-    console.log("여기");
     changePages(pageSignin);
   }
 });
