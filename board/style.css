@@ -54,10 +54,6 @@ nav > button:hover .btn-text {
   transform: translateY(-2px);
 }
 
-.invisible {
-  display: none;
-}
-
 #greeting {
   padding: 0;
   margin: 0;
@@ -70,7 +66,7 @@ nav > button:hover .btn-text {
   font-weight: 600;
 }
 
-#logout-btn {
+#btn-logout {
   margin: 0;
   margin-left: 5px;
   padding: 4px 5px;
@@ -82,7 +78,7 @@ nav > button:hover .btn-text {
   font-weight: 500;
 }
 
-#logout-btn:hover {
+#btn-logout:hover {
   font-weight: 600;
 }
 
@@ -214,7 +210,8 @@ input:focus {
   font-weight: 600;
 }
 
-#detail-userid {
+#detail-username,
+#detail-date {
   font-size: 0.9em;
   color: #444;
   margin: 0;
