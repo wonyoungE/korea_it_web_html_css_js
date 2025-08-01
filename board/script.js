@@ -2,7 +2,10 @@ const API_BASE_URL = "http://localhost:8080";
 
 // 메뉴 버튼
 const navSignin = document.querySelector("#nav-signin");
+// DOM 요소를 객체 형태로 확인할 수 있는 방법
+// console.dir(navSignin);
 const navSignup = document.querySelector("#nav-signup");
+const navChangepw = document.querySelector("#nav-changepw");
 const navBoard = document.querySelector("#nav-board");
 const navWrite = document.querySelector("#nav-write");
 const navigation = document.querySelector("nav");
@@ -10,13 +13,15 @@ const navigation = document.querySelector("nav");
 // 페이지
 const pageSignin = document.querySelector("#page-signin");
 const pageSignup = document.querySelector("#page-signup");
+const pageChangepw = document.querySelector("#page-changepw");
 const pageBoard = document.querySelector("#page-board");
 const pageDetail = document.querySelector("#page-detail");
 const pageWrite = document.querySelector("#page-write");
 
-// 회원가입 / 로그인 폼
+// 회원가입 / 로그인 / 비밀번호 변경 폼
 const signupForm = document.querySelector("#signup-form");
 const signinForm = document.querySelector("#signin-form");
+const changepwForm = document.querySelector("#changepw-form");
 
 // 게시물 목록
 const boardList = document.querySelector("#board-list");
@@ -59,12 +64,14 @@ function getPayload() {
 
 // 내비게이션 바 변경 함수
 // 토큰이 있는 경우, 없는 경우로 나누기
+// 수업 방식으로 리팩토링ㄱㄱ
 async function updateNavBar() {
   const accessToken = localStorage.getItem("AccessToken");
 
   if (accessToken) {
     navSignin.classList.add("invisible");
     navSignup.classList.add("invisible");
+    navChangepw.classList.remove("invisible");
     navBoard.classList.remove("invisible");
     navWrite.classList.remove("invisible");
 
@@ -97,7 +104,14 @@ async function updateNavBar() {
         // 로그아웃 버튼 이벤트리스너 등록
         const logoutBtn = document.querySelector("#logout-btn");
         if (logoutBtn) {
-          logoutBtn.addEventListener("click", logoutHandler);
+          logoutBtn.addEventListener("click", () => {
+            if (confirm("로그아웃 하시겠습니까?")) {
+              localStorage.removeItem("AccessToken");
+              location.reload(true);
+            } else {
+              return;
+            }
+          });
         }
         await renderBoard();
         changePages(pageBoard);
@@ -108,6 +122,7 @@ async function updateNavBar() {
   } else {
     navSignin.classList.remove("invisible");
     navSignup.classList.remove("invisible");
+    navChangepw.classList.add("invisible");
     navBoard.classList.remove("invisible");
     navWrite.classList.remove("invisible");
 
@@ -235,12 +250,6 @@ async function signinHandler(event) {
   }
 }
 
-// 로그아웃 요청 함수
-async function logoutHandler() {
-  localStorage.removeItem("AccessToken");
-  await updateNavBar();
-}
-
 // 게시물 목록 요청 함수
 // 게시판 목록 버튼 눌렀을 때, 로그인 버튼 눌렀을 때
 async function renderBoard() {
@@ -316,6 +325,7 @@ async function getBoard(boardId) {
       console.log(board);
       detailTitle.innerText = board.title;
       detailUserId.innerText = `작성자: ${board.user.username}`;
+      // detailDate.innerText = `작성일: ${board.createDate}`;
       detailContent.innerText = board.content;
 
       changePages(pageDetail);
@@ -376,11 +386,84 @@ async function addBoard(event) {
   }
 }
 
+// 비밀번호 변경 요청 함수
+async function changePw(event) {
+  event.preventDefault();
+
+  const accessToken = localStorage.getItem("AccessToken");
+
+  if (!accessToken) {
+    alert("비밀번호를 변경하려면 로그인이 필요합니다.");
+    changePages(pageSignin);
+    return;
+  }
+  const currentPwInput = document.querySelector("#current-pw");
+  const newPwInput = document.querySelector("#new-pw");
+  const newPwCheckInput = document.querySelector("#new-pw-check");
+
+  const currentPw = currentPwInput.value;
+  const newPw = newPwInput.value;
+  const newPwCheck = newPwCheckInput.value;
+
+  if (currentPw.trim() === "" || newPw.trim() === "" || newPwCheck === "") {
+    alert("모든 항목을 입력해주세요.");
+    return;
+  }
+
+  if (newPw !== newPwCheck) {
+    alert("새로운 비밀번호를 확인해주세요.");
+    newPwInput.value = "";
+    newPwCheckInput.value = "";
+    return;
+  }
+
+  // 비밀번호 변경 요청 로직
+  try {
+    const payload = await getPayload();
+
+    const changePwData = {
+      userId: payload.jti,
+      oldPassword: currentPw,
+      newPassword: newPw,
+      newCheckPassword: newPwCheck,
+    };
+
+    const response = await fetch(`${API_BASE_URL}/account/change/password`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(changePwData),
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.status !== "success") {
+      alert(responseData.message);
+    } else {
+      // 비밀번호 변경되면 로그아웃?
+      alert(responseData.message);
+      changepwForm.reset();
+      localStorage.removeItem("AccessToken");
+      // 네비게이션 바 변경
+      updateNavBar();
+      // changePages(pageSignin);
+    }
+  } catch (error) {
+    alert(error);
+    location.reload();
+  }
+}
+
 navSignin.addEventListener("click", () => {
   changePages(pageSignin);
 });
 navSignup.addEventListener("click", () => {
   changePages(pageSignup);
+});
+navChangepw.addEventListener("click", () => {
+  changePages(pageChangepw);
 });
 
 navBoard.addEventListener("click", renderBoard);
@@ -399,6 +482,7 @@ signinForm.addEventListener("keypress", (event) => {
     signinHandler;
   }
 });
+
 writeForm.addEventListener("submit", addBoard);
 writeForm.addEventListener("keypress", (event) => {
   if (event.key == "Enter") {
@@ -406,5 +490,24 @@ writeForm.addEventListener("keypress", (event) => {
   }
 });
 
-// 화면 처음 렌더링 시 내비게이션바 업뎃
+changepwForm.addEventListener("submit", changePw);
+changepwForm.addEventListener("keypress", (event) => {
+  if (event.key == "Enter") {
+    changePw;
+  }
+});
+
+// 화면 처음 렌더링 시 내비게이션바 업데이트
 updateNavBar();
+
+// 수업 - 토큰 있으면 게시판으로
+// HTML 문서가 완전히 로드되고 파싱되었을 때
+// document.addEventListener("DOMContentLoaded", async () => {
+//   const accessToken = localStorage.getItem("AccessToken");
+
+//   if (accessToken) {
+//     await renderBoard();
+//   } else {
+//     changePages(pageSignin);
+//   }
+// });

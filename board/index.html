@@ -10,10 +10,15 @@
     <div id="container">
       <header>
         <nav>
-          <button id="nav-signin">로그인</button>
-          <button id="nav-signup">회원가입</button>
-          <button id="nav-board">게시판</button>
-          <button id="nav-write">글쓰기</button>
+          <button id="nav-signin"><span class="btn-text">로그인</span></button>
+          <button id="nav-signup" class="btn-text">
+            <span class="btn-text">회원가입</span>
+          </button>
+          <button id="nav-changepw">
+            <span class="btn-text">비밀번호 변경</span>
+          </button>
+          <button id="nav-board"><span class="btn-text">게시판</span></button>
+          <button id="nav-write"><span class="btn-text">글쓰기</span></button>
         </nav>
       </header>
       <main>
@@ -41,6 +46,24 @@
             <button type="submit" class="btn-submit">회원가입</button>
           </form>
         </div>
+        <!-- 비밀번호 변경 -->
+        <div id="page-changepw" class="page">
+          <h2>비밀번호 변경</h2>
+          <form id="changepw-form">
+            <input
+              type="password"
+              id="current-pw"
+              placeholder="현재 비밀번호"
+            />
+            <input type="password" id="new-pw" placeholder="새로운 비밀번호" />
+            <input
+              type="password"
+              id="new-pw-check"
+              placeholder="새로운 비밀번호 확인"
+            />
+            <button type="submit" class="btn-submit">비밀번호 변경</button>
+          </form>
+        </div>
         <!-- 게시판 -->
         <div id="page-board" class="page">
           <h2>게시물 목록</h2>
@@ -51,10 +74,11 @@
           <div id="detail-container">
             <h2 id="detail-title">제목</h2>
             <p id="detail-userid">유저ID</p>
+            <!-- <p id="detail-date">작성일</p> -->
             <hr />
             <p id="detail-content">내용</p>
           </div>
-          <button id="backBtn">← 목록으로</button>
+          <button id="backBtn">목록으로</button>
         </div>
         <!-- 글쓰기 -->
         <div id="page-write" class="page">
